@@ -1,0 +1,921 @@
+/* Estilos generales */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #111;
+  color: #fff;
+}
+
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FF0000;
+  padding: 10px 20px;
+}
+
+.menu-toggle,
+.search-toggle {
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header h1 {
+  margin: 0;
+  flex: 1;
+  text-align: center;
+}
+
+/* Navegación */
+nav.hidden,
+section.hidden {
+  display: none !important;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: #222;
+}
+
+nav ul li {
+  border-bottom: 1px solid #333;
+}
+
+nav ul li button {
+  width: 100%;
+  padding: 10px;
+  background: none;
+  border: none;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Enlace de Política y Privacidad */
+nav ul li a {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: none;
+  border: none;
+  color: #fff;
+  text-align: left;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+nav ul li a:hover,
+nav ul li button:hover {
+  background: #333;
+}
+
+/* Secciones */
+section {
+  padding: 10px;
+}
+
+/* Buscador */
+input#buscador {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+/* Carrusel destacado (dramas en emisión) */
+#destacado-emision {
+  position: relative;
+  width: 100%;
+  max-height: 450px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.carrusel-destacado {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carrusel-destacado img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  max-height: 450px;
+  display: block;
+}
+
+/* Información encima del carrusel */
+.info-destacado {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  color: white;
+}
+
+.info-flex {
+  display: flex;
+  flex-direction: row; /* Imagen primero, luego texto */
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* Imagen pequeña del carrusel */
+.info-img-derecha {
+  order: 0;
+}
+.info-img-derecha img {
+  width: 120px;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* Texto al lado derecho de la imagen */
+.info-texto {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.info-destacado .tags {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.tag {
+  background: #333;
+  padding: 3px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.info-destacado h2 {
+  margin: 5px 0 0;
+  font-size: 20px;
+}
+
+.info-destacado p {
+  font-size: 14px;
+  max-height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Botones debajo del texto */
+.botones {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-play,
+.btn-lista {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-play {
+  background: white;
+  color: black;
+  font-weight: bold;
+}
+
+.btn-lista {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+}
+
+/* Contenedores de contenido */
+#ruleta-emision,
+#dramas,
+#peliculas {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 10px;
+}
+
+/* Tarjetas de contenido */
+.content-card {
+  flex: 0 0 auto;
+  width: 150px;
+  scroll-snap-align: start;
+  background: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.content-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.content-card div {
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Imagen de detalle */
+#detalle img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto 15px;
+}
+
+/* Lista de capítulos */
+#capitulos-lista button {
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+#capitulos-lista button:hover {
+  background: #666;
+}
+
+/* Botón volver */
+#btn-volver,
+#btn-volver-acerca {
+  background: crimson;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#btn-volver:hover,
+#btn-volver-acerca:hover {
+  background: #dc143c;
+}
+
+/* Reproductor de video */
+video {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+  overflow: visible;
+}
+
+/* Modal emergente de vista previa */
+#preview-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background: #1a1a1a;
+  color: white;
+  border-radius: 15px;
+  padding: 15px;
+  width: 90%;
+  max-width: 350px;
+  max-height: 80vh;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-content img {
+  width: 80%;
+  max-height: 180px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.modal-text {
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  padding: 5px 10px;
+  background: #FE000085;
+  border-radius: 8px;
+  max-height: 150px;
+}
+
+.modal-text h3 {
+  text-align: center;
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.modal-text p {
+  font-size: 14px;
+  color: #ccc;
+  text-align: justify;
+}
+
+/* Botón cerrar (X) del modal */
+.cerrar-modal {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Botón Ver más en el modal */
+.modal-content button {
+  margin-top: 10px;
+  background: #06D9FF;
+  border: none;
+  color: black;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Resultados de búsqueda */
+#busqueda h2 {
+  text-align: center;
+  margin: 15px 0;
+}
+
+#busqueda-resultados {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+#busqueda-resultados .content-card {
+  width: 150px;
+}
+
+.sin-resultados {
+  text-align: center;
+  margin: 20px 0;
+  font-style: italic;
+  color: #ccc;
+}
+
+/* ===== ESTILOS PARA LA SECCIÓN "ACERCA DE" ===== */
+
+#acerca-de {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.acerca-contenido h1 {
+  text-align: center;
+  color: #06D9FF;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+.acerca-contenido h2 {
+  color: #06D9FF;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+.descripcion-general,
+.contenido-info,
+.como-funciona {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border-left: 4px solid #06D9FF;
+}
+
+.contenido-info ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.contenido-info ul li {
+  margin-bottom: 8px;
+}
+
+.contenido-info ul li strong {
+  color: #FF0606;
+}
+
+/* Estilos del acordeón */
+.guia-uso {
+  margin-top: 30px;
+}
+
+.acordeon {
+  margin-top: 20px;
+}
+
+.acordeon-item {
+  background: #1a1a1a;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  border: 1px solid #333;
+  transition: all 0.3s ease;
+}
+
+.acordeon-item:hover {
+  border-color: #FF0606;
+}
+
+.acordeon-header {
+  width: 100%;
+  padding: 15px 20px;
+  background: #222;
+  border: none;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.acordeon-header:hover {
+  background: #2a2a2a;
+  color: #FF0000;
+}
+
+.acordeon-header:focus {
+  outline: none;
+  background: #2a2a2a;
+}
+
+/* Indicador de flecha para el acordeón */
+.acordeon-header::after {
+  content: '▼';
+  font-size: 12px;
+  color: #FF0606;
+  transition: transform 0.3s ease;
+}
+
+.acordeon-header.active::after {
+  transform: rotate(180deg);
+}
+
+.acordeon-content {
+  display: none;
+  padding: 0 20px;
+  background: #1a1a1a;
+  transition: all 0.3s ease;
+}
+
+.acordeon-item.active .acordeon-content {
+  display: block;
+  padding: 20px;
+}
+
+.acordeon-content p {
+  margin: 0;
+  color: #ccc;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+/* Footer de la sección acerca de */
+.footer-acerca {
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  background: linear-gradient(135deg, #FF0606, #440202);
+  border-radius: 10px;
+  color: #000;
+}
+
+.footer-acerca p {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* Oculto general */
+.hidden {
+  display: none !important;
+}
+
+/* Previene desplazamiento horizontal global */
+body {
+  overflow-x: hidden;
+}
+
+/* Asegura que el carrusel solo se desplace dentro de su contenedor */
+#ruleta-emision,
+#dramas,
+#peliculas {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  gap: 10px;
+  padding-bottom: 10px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Evita que los elementos hijos rompan el ancho de pantalla */
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+/* Elimina posibles márgenes o padding invisibles en la raíz */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+/* Contenedor de scroll personalizado */
+.contenedor-scroll {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* Ocultar scrollbar nativo */
+#ruleta-emision::-webkit-scrollbar,
+#dramas::-webkit-scrollbar,
+#peliculas::-webkit-scrollbar {
+  display: none;
+}
+
+#dramas,
+#peliculas {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+/* Control de scroll personalizado */
+.scroll-control {
+  margin-top: 10px;
+  padding: 0 10px;
+}
+
+.scroll-track {
+  width: 100%;
+  height: 6px;
+  background: #333;
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+}
+
+.scroll-thumb {
+  height: 100%;
+  background: #06D9FF;
+  border-radius: 3px;
+  width: 80px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: grab;
+  transition: background 0.2s;
+}
+
+.scroll-thumb:hover {
+  background: #D60404;
+}
+
+.scroll-thumb:active {
+  cursor: grabbing;
+  background: #FF0000;
+}
+
+/* Mejoras en las tarjetas de contenido para mejor interacción táctil */
+.content-card {
+  /* Estilos existentes se mantienen */
+  transition: transform 0.2s, box-shadow 0.2s;
+  /* Área táctil más amplia */
+  padding: 3px;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.content-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(6, 217, 255, 0.3);
+}
+
+.content-card:active {
+  transform: scale(0.98);
+}
+
+.content-card img {
+  /* Estilos existentes se mantienen */
+  border-radius: 7px;
+  pointer-events: none; /* Evita que la imagen interfiera con el clic */
+}
+
+.content-card div {
+  /* Estilos existentes se mantienen */
+  pointer-events: none; /* Evita que el texto interfiera con el clic */
+}
+/* FAVORITOS GRID RESPONSIVO */
+.favoritos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Por defecto, 2 columnas (móvil) */
+  gap: 15px;
+  padding: 20px;
+}
+
+@media (min-width: 600px) {
+  .favoritos-grid {
+    grid-template-columns: repeat(3, 1fr); /* Tablet */
+  }
+}
+
+@media (min-width: 900px) {
+  .favoritos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Computador */
+  }
+}
+
+/* === BOTONES DE FAVORITO === */
+
+.btn-lista,
+.btn-favorito-detalle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid #06D9FF;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn-lista:hover,
+.btn-favorito-detalle:hover {
+  background: #FF0606;
+  color: #000;
+  transform: scale(1.05);
+}
+
+.btn-lista .corazon-icon,
+.btn-favorito-detalle .corazon-icon {
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.texto-favorito {
+  display: inline-block;
+  font-size: 14px;
+}
+
+/* === BOTÓN VOLVER alineado a la derecha === */
+
+#btn-volver-favoritos,
+#btn-volver,
+#btn-volver-acerca {
+  background: crimson;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#btn-volver-favoritos:hover,
+#btn-volver:hover,
+#btn-volver-acerca:hover {
+  background: #FF0606;
+  color: #000;
+  transform: scale(1.05);
+}
+
+/* ======== CHAT MODAL (tipo burbuja) ======== */
+
+#chat-modal {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  max-height: 90vh;
+  background: #1e1e1e;
+  border: 2px solid #FF0606;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(255, 6, 6, 0.4);
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+#chat-modal.hidden {
+  display: none !important;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.cerrar-chat {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.chat-login {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.chat-login input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background: #2a2a2a;
+  color: white;
+}
+
+.chat-login button {
+  background: #FF0606;
+  border: none;
+  color: black;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chat-login button:hover {
+  background: #D90505;
+}
+
+/* Área del chat */
+#chat-area {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-mensajes {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background: #121212;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 300px;
+}
+
+.mensaje {
+  max-width: 80%;
+  padding: 8px 12px;
+  border-radius: 15px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-break: break-word;
+  position: relative;
+}
+
+.mensaje.propio {
+  align-self: flex-end;
+  background: #FF0606;
+  color: black;
+}
+
+.mensaje.otro {
+  align-self: flex-start;
+  background: #333;
+  color: white;
+}
+
+/* Formulario */
+#chat-form {
+  display: flex;
+  gap: 8px;
+}
+
+#chat-form input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #555;
+  background: #2a2a2a;
+  color: white;
+}
+
+#chat-form button {
+  background: #FF0606;
+  border: none;
+  color: black;
+  font-weight: bold;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#chat-form button:hover {
+  background: #D90505;
+}
+
+/* ===== Modal de agradecimiento de reporte ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.modal-gracias-contenido {
+  background: #1a1a1a;
+  color: white;
+  padding: 25px 20px;
+  border-radius: 15px;
+  max-width: 360px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 0 20px #FF0606;
+}
+
+.modal-gracias-contenido h3 {
+  color: #FF0606;
+}
+
+.boton-cerrar-gracias {
+  margin-top: 15px;
+  background: #FF0606;
+  border: none;
+  color: black;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}

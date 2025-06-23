@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOG TV</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Encabezado y menú -->
+    <header>
+      <!-- Botón del menú con imagen -->
+      <div id="menu-toggle" class="menu-toggle" onclick="toggleMenu()">
+        <img src="img/menu.png" alt="Menú" style="width: 30px; height: 30px" />
+      </div>
+
+      <h1>DRAMAS TV</h1>
+      <div id="search-toggle" class="search-toggle">🔍</div>
+    </header>
+
+    <nav id="menu" class="hidden">
+      <ul>
+        <li>
+          <a
+            href="POLITICAS/politica_es.html"
+            target="_blank"
+            id="link-politica"
+            >POLITICAS Y PRIVASIDAD</a
+          >
+        </li>
+        <li><button id="btn-acerca">INFORMACION DE USO</button></li>
+        <li><button id="btn-favoritos">MIS FAVORITOS</button></li>
+      </ul>
+    </nav>
+    <!-- Carrusel de emisión destacado -->
+    <section id="destacado-emision">
+      <div id="carrusel-destacado" class="carrusel-destacado">
+        <!-- Imagen de fondo -->
+        <img id="carrusel-img" src="" alt="Destacado" />
+
+        <!-- Información destacada encima -->
+        <div class="info-destacado">
+          <div class="info-flex">
+            <div class="info-texto">
+              <div class="info-img-derecha">
+                <img
+                  id="carrusel-img-derecha"
+                  src=""
+                  alt="Miniatura destacada"
+                />
+              </div>
+              <h2 id="carrusel-titulo">Título</h2>
+              <div class="tags">
+                <span id="carrusel-ano" class="tag">2025</span>
+                <span id="carrusel-audio" class="tag">Latino</span>
+              </div>
+              <p id="carrusel-descripcion">Descripción</p>
+              <div class="botones">
+                <button id="btn-ver" class="btn-play">▶ REPRODUCIR</button>
+                <button id="btn-lista-carrusel" class="btn-lista">
+                  <span class="corazon-icon">♡</span>
+                  <span class="texto-favorito">FAVORITOS</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de búsqueda -->
+    <section id="busqueda" class="hidden">
+      <input
+        type="text"
+        id="buscador"
+        placeholder="Buscar películas o series..."
+      />
+      <h2>Resultados de búsqueda</h2>
+      <div id="busqueda-resultados"></div>
+    </section>
+
+    <!-- Sección Acerca de -->
+    <section id="acerca-de" class="hidden">
+      <button id="btn-volver-acerca">Volver</button>
+      <div class="acerca-contenido">
+        <h1>Acerca de DOG TV</h1>
+
+        <div class="descripcion-general">
+          <p>
+            DOG TV es tu plataforma de streaming favorita donde puedes disfrutar
+            de una amplia variedad de contenido audiovisual. Nuestra plataforma
+            está diseñada para ofrecerte la mejor experiencia de entretenimiento
+            con dramas asiáticos, películas y series de alta calidad.
+          </p>
+        </div>
+
+        <div class="contenido-info">
+          <h2>¿Qué contenido encontrarás?</h2>
+          <p>En DOG TV tenemos una extensa biblioteca que incluye:</p>
+          <ul>
+            <li>
+              <strong>Dramas:</strong> Series asiáticas de diferentes géneros
+              (romance, acción, comedia, thriller)
+            </li>
+            <li>
+              <strong>Películas:</strong> Una selección curada de películas de
+              diversos países y géneros
+            </li>
+            <li>
+              <strong>Contenido en emisión:</strong> Los últimos estrenos y
+              series más populares del momento
+            </li>
+          </ul>
+        </div>
+
+        <div class="como-funciona">
+          <h2>¿Cómo funciona DOG TV?</h2>
+          <p>
+            Nuestra plataforma es intuitiva y fácil de usar. Simplemente navega
+            por las diferentes categorías, selecciona el contenido que te
+            interese y disfruta. Todo nuestro contenido está disponible con
+            audio latino y subtítulos para tu comodidad.
+          </p>
+        </div>
+
+        <div class="guia-uso">
+          <h2>Guía Básica de Uso</h2>
+          <div class="acordeon">
+            <div class="acordeon-item">
+              <button class="acordeon-header">
+                ¿Cómo navegar por la plataforma?
+              </button>
+              <div class="acordeon-content">
+                <p>
+                  Utiliza el menú hamburguesa (☰) en la esquina superior
+                  izquierda para acceder a las opciones principales. En la
+                  pantalla principal encontrarás el carrusel de contenido
+                  destacado y las secciones de Dramas y Películas. Puedes
+                  desplazarte horizontalmente en cada sección para ver más
+                  contenido.
+                </p>
+              </div>
+            </div>
+
+            <div class="acordeon-item">
+              <button class="acordeon-header">
+                ¿Cómo buscar contenido específico?
+              </button>
+              <div class="acordeon-content">
+                <p>
+                  Haz clic en el ícono de búsqueda (🔍) en la esquina superior
+                  derecha. Escribe el nombre de la serie, película o género que
+                  buscas. Los resultados aparecerán automáticamente mientras
+                  escribes.
+                </p>
+              </div>
+            </div>
+
+            <div class="acordeon-item">
+              <button class="acordeon-header">
+                ¿Cómo ver información detallada de una serie o película?
+              </button>
+              <div class="acordeon-content">
+                <p>
+                  Haz clic en cualquier imagen de contenido para acceder a la
+                  página de detalles. Ahí encontrarás la sinopsis completa, año
+                  de lanzamiento, género, actores principales y la lista de
+                  capítulos disponibles.
+                </p>
+              </div>
+            </div>
+
+            <div class="acordeon-item">
+              <button class="acordeon-header">
+                ¿Cómo reproducir un capítulo o película?
+              </button>
+              <div class="acordeon-content">
+                <p>
+                  Una vez en la página de detalles, verás botones para cada
+                  capítulo disponible. Haz clic en el capítulo que deseas ver y
+                  el reproductor se abrirá automáticamente. Para las películas,
+                  simplemente haz clic en "REPRODUCIR".
+                </p>
+              </div>
+            </div>
+
+            <div class="acordeon-item">
+              <button class="acordeon-header">
+                ¿Qué significa el carrusel destacado?
+              </button>
+              <div class="acordeon-content">
+                <p>
+                  El carrusel en la parte superior muestra automáticamente el
+                  contenido más reciente y popular que está "en emisión". Cambia
+                  cada pocos segundos para mostrarte diferentes opciones. Puedes
+                  hacer clic en "REPRODUCIR" para ir directamente al contenido.
+                </p>
+              </div>
+            </div>
+
+            <div class="acordeon-item">
+              <button class="acordeon-header">
+                ¿Cómo obtener una vista previa del contenido?
+              </button>
+              <div class="acordeon-content">
+                <p>
+                  Mantén presionado cualquier imagen de contenido durante unos
+                  segundos para ver una vista previa rápida con información
+                  básica. Esto te permite conocer más sobre el contenido sin
+                  salir de la página principal.
+                </p>
+              </div>
+            </div>
+
+            <div class="acordeon-item">
+              <button class="acordeon-header">
+                ¿Cómo volver a la página principal?
+              </button>
+              <div class="acordeon-content">
+                <p>
+                  En cualquier momento puedes hacer clic en el botón "Volver"
+                  que aparece en las páginas de detalle o reproductor. También
+                  puedes hacer clic en el logo "DOG TV" en la parte superior
+                  para regresar al inicio.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-acerca">
+          <p>
+            <strong
+              >¡Disfruta de todo nuestro contenido y gracias por elegir DOG
+              TV!</strong
+            >
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de Favoritos -->
+    <section id="favoritos" class="hidden">
+      <button id="btn-volver-favoritos">Volver</button>
+      <div class="favoritos-contenido">
+        <h1>Mis Favoritos</h1>
+        <div id="favoritos-lista" class="favoritos-grid">
+          <div class="favoritos-vacio">
+            <h3>No tienes favoritos aún</h3>
+            <p>Agrega contenido a tu lista de favoritos para verlo aquí</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Listas de contenido -->
+    <main id="listas-contenido">
+      <section>
+        <h2>Series y Dramas Coreanos</h2>
+        <div class="contenedor-scroll">
+          <div id="dramas"></div>
+          <div class="scroll-control">
+            <div class="scroll-track">
+              <div class="scroll-thumb" data-target="dramas"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>Películas Coreanas</h2>
+        <div class="contenedor-scroll">
+          <div id="peliculas"></div>
+          <div class="scroll-control">
+            <div class="scroll-track">
+              <div class="scroll-thumb" data-target="peliculas"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Vista de detalle -->
+    <section id="detalle" class="hidden">
+      <button id="btn-volver">Volver</button>
+      <div class="detalle-header">
+        <img id="detalle-img" alt="Imagen" />
+        <button id="btn-favorito-detalle" class="btn-favorito-detalle">
+          <span class="corazon-icon">♡</span>
+        </button>
+      </div>
+      <h2 id="detalle-titulo"></h2>
+      <div
+        style="
+          max-height: 100px;
+          overflow-y: auto;
+          background: #1a1a1a;
+          padding: 10px;
+          border-radius: 5px;
+        "
+      >
+        <p id="detalle-descripcion"></p>
+      </div>
+      <p><strong>Año:</strong> <span id="detalle-ano"></span></p>
+      <p><strong>Género:</strong> <span id="detalle-genero"></span></p>
+      <p><strong>Audio:</strong> <span id="detalle-audio"></span></p>
+      <p><strong>Actores:</strong> <span id="detalle-actors"></span></p>
+      <div id="capitulos-lista"></div>
+      <button
+        id="btn-chat"
+        style="
+          background: #ff0000; 
+          border: none;
+          color: black;
+          padding: 10px 20px;
+          border-radius: 8px;
+          font-weight: bold;
+          margin-top: 15px;
+          cursor: pointer;
+          display: block;
+          width: 100%;
+          max-width: 300px;
+          margin-left: auto;
+          margin-right: auto;
+        "
+      >
+        Chat
+      </button>
+    </section>
+
+    <!-- Reproductor de video -->
+    <section id="video-player" class="hidden">
+      <video
+        id="video"
+        controls
+        controlsList="nodownload"
+        oncontextmenu="return false"
+        preload="metadata"
+        width="100%"
+      ></video>
+      <button
+        id="btn-fullscreen"
+        style="
+          background: #ff0000;
+          border: none;
+          color: #000;
+          padding: 8px 16px;
+          border-radius: 8px;
+          font-weight: bold;
+          cursor: pointer;
+          margin-top: 10px;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        "
+      >
+        Pantalla completa
+      </button>
+    </section>
+
+    <!-- Modal emergente de vista previa -->
+    <div id="preview-modal" class="hidden">
+      <div class="modal-content">
+        <button id="modal-cerrar" class="cerrar-modal">✕</button>
+        <img id="preview-img" src="" alt="Preview" />
+        <div class="modal-text">
+          <h3 id="preview-title"></h3>
+          <p id="preview-descripcion"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Chat -->
+    <div id="chat-modal" class="hidden">
+      <div class="chat-container">
+        <button class="cerrar-chat" id="cerrar-chat">✕</button>
+
+        <!-- Login si no está autenticado -->
+        <div id="chat-login" class="chat-login">
+          <h3>Iniciar sesión</h3>
+          <input
+            type="text"
+            id="chat-usuario"
+            placeholder="Nombre de usuario"
+          />
+          <input type="password" id="chat-clave" placeholder="Contraseña" />
+          <button id="chat-login-btn">Entrar</button>
+          <p
+            id="chat-login-error"
+            style="color: crimson; font-size: 14px; display: none"
+          >
+            Error de autenticación
+          </p>
+        </div>
+
+        <!-- Chat en tiempo real -->
+        <div id="chat-area" class="hidden">
+          <div id="chat-mensajes" class="chat-mensajes"></div>
+          <form id="chat-form">
+            <input
+              type="text"
+              id="chat-texto"
+              placeholder="Escribe un mensaje..."
+              required
+            />
+            <button type="submit">Enviar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Advertencia por Lenguaje Ofensivo -->
+    <div
+      id="modal-advertencia"
+      class="hidden"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+      "
+    >
+      <div
+        style="
+          background: #1a1a1a;
+          color: white;
+          padding: 20px;
+          border-radius: 15px;
+          max-width: 350px;
+          width: 90%;
+          box-shadow: 0 0 20px crimson;
+          text-align: center;
+          position: relative;
+        "
+      >
+        <h3 style="color: #ff0606">⚠️ Advertencia</h3>
+        <p>Se ha detectado el uso de lenguaje ofensivo.</p>
+        <p>
+          Por favor evita este tipo de palabras para mantener un ambiente sano
+          en la comunidad.
+        </p>
+        <p id="estado-corazones" style="font-size: 24px; margin: 10px 0">
+          ❤️❤️❤️
+        </p>
+        <button
+          id="cerrar-modal-advertencia"
+          style="
+            margin-top: 10px;
+            background: #ff0000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+          "
+        >
+          Entendido
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal de Usuario Bloqueado -->
+    <div
+      id="modal-bloqueo"
+      class="hidden"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+      "
+    >
+      <div
+        style="
+          background: #1a1a1a;
+          color: white;
+          padding: 20px;
+          border-radius: 15px;
+          max-width: 380px;
+          width: 95%;
+          box-shadow: 0 0 20px red;
+          overflow-y: auto;
+          max-height: 90vh;
+          text-align: center;
+          position: relative;
+        "
+      >
+        <h3 style="color: red">🚫 Acceso Bloqueado</h3>
+        <p>
+          Tu cuenta ha sido bloqueada por uso repetido de lenguaje ofensivo.
+        </p>
+        <p style="font-size: 18px; margin: 10px 0">Motivo de suspensión:</p>
+        <div
+          id="historial-bloqueo"
+          style="
+            background: #2a2a2a;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 13px;
+            text-align: left;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid crimson;
+          "
+        >
+          <!-- Aquí se cargará el historial desde JavaScript -->
+        </div>
+        <button
+          id="cerrar-modal-bloqueo"
+          style="
+            margin-top: 15px;
+            background: crimson;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+          "
+        >
+          Cerrar
+        </button>
+      </div>
+    </div>
+    <!-- aquí ba modal bloqueado -->
+    <div id="modal-bloqueo" class="hidden">
+      <div>
+        <h3>🚫 Acceso Bloqueado</h3>
+        <div id="historial-bloqueo"></div>
+        <button id="cerrar-modal-bloqueo">Cerrar</button>
+      </div>
+    </div>
+
+    <!-- Modal de Reporte de Mensaje -->
+    <div
+      id="modal-reporte"
+      class="hidden"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+      "
+    >
+      <div
+        style="
+          background: #1a1a1a;
+          color: white;
+          padding: 20px;
+          border-radius: 15px;
+          max-width: 400px;
+          width: 95%;
+          box-shadow: 0 0 20px crimson;
+          text-align: left;
+        "
+      >
+        <h3 style="margin-top: 0">🚩 Reportar mensaje</h3>
+        <p
+          id="mensaje-reportado"
+          style="
+            font-size: 14px;
+            background: #2a2a2a;
+            padding: 10px;
+            border-radius: 10px;
+          "
+        ></p>
+
+        <label
+          ><input
+            type="radio"
+            name="motivo-reporte"
+            value="Lenguaje ofensivo"
+          />
+          Lenguaje ofensivo</label
+        ><br />
+        <label
+          ><input type="radio" name="motivo-reporte" value="Spam" /> Spam</label
+        ><br />
+        <label
+          ><input type="radio" name="motivo-reporte" value="Fuera de tema" />
+          Fuera de tema</label
+        ><br />
+        <label
+          ><input type="radio" name="motivo-reporte" value="Otro" /> Otro</label
+        >
+
+        <textarea
+          id="comentario-reporte"
+          placeholder="Comentario adicional (opcional)"
+          style="
+            width: 100%;
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: 10px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            color: white;
+          "
+        ></textarea>
+
+        <div style="margin-top: 15px; text-align: right">
+          <button
+            id="cancelar-reporte"
+            style="
+              margin-right: 10px;
+              background: #555;
+              color: white;
+              border: none;
+              padding: 8px 15px;
+              border-radius: 8px;
+              cursor: pointer;
+            "
+          >
+            Cancelar
+          </button>
+          <button
+            id="enviar-reporte"
+            style="
+              background: crimson;
+              color: white;
+              border: none;
+              padding: 8px 15px;
+              border-radius: 8px;
+              cursor: pointer;
+            "
+          >
+            Enviar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Confirmación de Reporte -->
+    <div id="modal-gracias-reporte" class="modal-overlay hidden">
+      <div class="modal-gracias-contenido">
+        <h3>✅ ¡Gracias <span id="usuario-gracias"></span>!</h3>
+        <p>
+          ADMINISTRADOR <strong>DoogTV</strong> agradece tu ayuda para mantener
+          una comunidad sana y respetuosa.
+        </p>
+        <button id="cerrar-modal-gracias" class="boton-cerrar-gracias">
+          Cerrar
+        </button>
+      </div>
+    </div>
+    <script>
+      function toggleMenu() {
+        const menu = document.getElementById("menu"); // Asume que tu menú tiene id="menu"
+        if (menu) {
+          menu.classList.toggle("visible"); // Alterna la clase visible
+        }
+      }
+    </script>
+
+    <!-- Script principal -->
+    <script>
+      // Función para inicializar los controles de scroll personalizados
+      function initScrollControls() {
+        const scrollThumbs = document.querySelectorAll(".scroll-thumb");
+
+        scrollThumbs.forEach((thumb) => {
+          const targetId = thumb.dataset.target;
+          const scrollContainer = document.getElementById(targetId);
+          const scrollTrack = thumb.parentElement;
+
+          if (!scrollContainer) return;
+
+          let isDragging = false;
+          let startX = 0;
+          let scrollLeft = 0;
+
+          // Actualizar posición del thumb basado en el scroll del contenedor
+          function updateThumbPosition() {
+            const maxScroll =
+              scrollContainer.scrollWidth - scrollContainer.clientWidth;
+            if (maxScroll <= 0) return;
+
+            const scrollRatio = scrollContainer.scrollLeft / maxScroll;
+            const maxThumbPosition =
+              scrollTrack.clientWidth - thumb.clientWidth;
+            thumb.style.left = scrollRatio * maxThumbPosition + "px";
+          }
+
+          // Evento de scroll del contenedor
+          scrollContainer.addEventListener("scroll", updateThumbPosition);
+
+          // Eventos del thumb
+          thumb.addEventListener("mousedown", startDrag);
+          thumb.addEventListener("touchstart", startDrag, { passive: false });
+
+          // Evento del track (clic directo en la pista)
+          scrollTrack.addEventListener("click", (e) => {
+            if (e.target === scrollTrack) {
+              const rect = scrollTrack.getBoundingClientRect();
+              const clickX = e.clientX - rect.left;
+              const scrollRatio = clickX / scrollTrack.clientWidth;
+              const maxScroll =
+                scrollContainer.scrollWidth - scrollContainer.clientWidth;
+              scrollContainer.scrollLeft = scrollRatio * maxScroll;
+            }
+          });
+
+          function startDrag(e) {
+            isDragging = true;
+            startX = e.type === "mousedown" ? e.clientX : e.touches[0].clientX;
+            scrollLeft = scrollContainer.scrollLeft;
+
+            document.addEventListener("mousemove", onDrag);
+            document.addEventListener("mouseup", stopDrag);
+            document.addEventListener("touchmove", onDrag, { passive: false });
+            document.addEventListener("touchend", stopDrag);
+
+            e.preventDefault();
+          }
+
+          function onDrag(e) {
+            if (!isDragging) return;
+
+            const currentX =
+              e.type === "mousemove" ? e.clientX : e.touches[0].clientX;
+            const deltaX = currentX - startX;
+            const scrollRatio = deltaX / scrollTrack.clientWidth;
+            const maxScroll =
+              scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+            scrollContainer.scrollLeft = scrollLeft + scrollRatio * maxScroll;
+
+            e.preventDefault();
+          }
+
+          function stopDrag() {
+            isDragging = false;
+            document.removeEventListener("mousemove", onDrag);
+            document.removeEventListener("mouseup", stopDrag);
+            document.removeEventListener("touchmove", onDrag);
+            document.removeEventListener("touchend", stopDrag);
+          }
+
+          // Inicializar posición después de un breve delay
+          setTimeout(updateThumbPosition, 100);
+        });
+      }
+
+      // Inicializar cuando el DOM esté listo
+      document.addEventListener("DOMContentLoaded", () => {
+        initScrollControls();
+      });
+
+      // Re-inicializar controles después de cargar contenido dinámico
+      function reinitScrollControls() {
+        setTimeout(() => {
+          initScrollControls();
+        }, 100);
+      }
+    </script>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
