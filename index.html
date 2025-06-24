@@ -30,6 +30,7 @@
         </li>
         <li><button id="btn-acerca">INFORMACION DE USO</button></li>
         <li><button id="btn-favoritos">MIS FAVORITOS</button></li>
+        <li><button id="btn-pedir-drama">PEDIR UN DRAMA</button></li>
       </ul>
     </nav>
     <!-- Carrusel de emisión destacado -->
@@ -770,6 +771,39 @@
         }, 100);
       }
     </script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
     <script src="app.js" type="module"></script>
-  </body>
+  
+<!-- Modal de Pedir Drama -->
+<div id="modal-pedir-drama" class="hidden">
+  <div class="chat-container">
+    <button class="cerrar-chat" id="cerrar-pedir-drama">✕</button>
+
+    <!-- Login si no está autenticado -->
+    <div id="pedir-drama-login" class="chat-login">
+      <h3>Inicia sesión para pedir</h3>
+      <input type="text" id="usuario-pedir" placeholder="Usuario" />
+      <input type="password" id="clave-pedir" placeholder="Contraseña" />
+      <button id="btn-login-pedir">Entrar</button>
+      <p id="error-pedir" style="color:red;display:none;">Error al autenticar</p>
+    </div>
+
+    <!-- Formulario para petición -->
+<div id="formulario-pedir" class="hidden">
+  <div id="lista-peticiones" class="chat-mensajes"></div>
+
+  <form id="form-pedir-drama">
+    <input type="text" id="titulo-pedido" placeholder="Título del drama" required />
+
+    <input type="file" id="imagen-pedido" accept="image/*" required />
+
+    <img id="preview-pedido" src="" alt="Vista previa" style="display: none;" />
+
+    <button type="submit">Enviar Petición</button>
+  </form>
+</div>
+
+</body>
 </html>

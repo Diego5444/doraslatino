@@ -70,7 +70,83 @@ const previewImg = document.getElementById("preview-img");
 const previewTitle = document.getElementById("preview-title");
 const previewDescripcion = document.getElementById("preview-descripcion");
 const modalCerrar = document.getElementById("modal-cerrar");
+// === CHAT DE PETICIONES ===
 
+const btnPedirDrama = document.getElementById("btn-pedir-drama");
+const modalPedir = document.getElementById("modal-pedir-drama");
+const cerrarPedir = document.getElementById("cerrar-pedir-drama");
+const pedirLogin = document.getElementById("pedir-drama-login");
+const formularioPedir = document.getElementById("formulario-pedir");
+const formPedir = document.getElementById("form-pedir-drama");
+const listaPeticiones = document.getElementById("lista-peticiones");
+const usuarioPedir = document.getElementById("usuario-pedir");
+const clavePedir = document.getElementById("clave-pedir");
+const btnLoginPedir = document.getElementById("btn-login-pedir");
+const errorPedir = document.getElementById("error-pedir");
+
+let usuarioPeticiones = null;
+
+if (btnPedirDrama) {
+  btnPedirDrama.addEventListener("click", () => {
+    modalPedir.classList.remove("hidden");
+    usuarioPeticiones = localStorage.getItem("usuarioDOGTV");
+    if (usuarioPeticiones) {
+      pedirLogin.classList.add("hidden");
+      formularioPedir.classList.remove("hidden");
+      cargarPeticiones();
+    } else {
+      pedirLogin.classList.remove("hidden");
+      formularioPedir.classList.add("hidden");
+    }
+  });
+}
+
+if (cerrarPedir) {
+  cerrarPedir.addEventListener("click", () => {
+    modalPedir.classList.add("hidden");
+  });
+}
+
+if (btnLoginPedir) {
+  btnLoginPedir.addEventListener("click", async () => {
+    const user = usuarioPedir.value.trim().toLowerCase();
+    const pass = clavePedir.value.trim();
+
+    const userRef = dbRef(db, `usuarios/${user}`);
+    const snap = await get(userRef);
+    if (snap.exists() && snap.val().clave === pass) {
+      usuarioPeticiones = user;
+      localStorage.setItem("usuarioDOGTV", user);
+      pedirLogin.classList.add("hidden");
+      formularioPedir.classList.remove("hidden");
+      cargarPeticiones();
+    } else {
+      errorPedir.style.display = "block";
+    }
+  });
+}
+
+function cargarPeticiones() {
+  onValue(dbRef(db, 'peticiones'), (snapshot) => {
+    listaPeticiones.innerHTML = "";
+    snapshot.forEach(child => {
+      const peticion = child.val();
+      const id = child.key;
+
+      // Si ya existe el drama, no mostrar la petición
+      if (Object.values(datosContenido).some(c => (c.Titulo || "").toLowerCase() === peticion.titulo.toLowerCase())) return;
+
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <div style="margin-bottom:10px;background:#333;padding:10px;border-radius:10px;">
+          <img src="${peticion.imagen}" alt="Preview" style="width:100%;border-radius:8px;">
+          <p style="margin:5px 0;"><strong>${peticion.titulo}</strong></p>
+          <p style="font-size:12px;color:#ccc;">por ${peticion.usuario}</p>
+        </div>`;
+      listaPeticiones.appendChild(div);
+    });
+  });
+}
 // Variables globales
 let datosContenido = {};
 let intervalCarrusel = null;
@@ -1162,3 +1238,61 @@ window.dogTVApp = {
   }
   //funcion prueba
 };
+
+
+// ===== SUBIR IMAGEN AL SELECCIONAR Y MOSTRAR PREVIEW =====
+
+import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+const inputImagen = document.getElementById("imagen-pedido");
+const previewImagen = document.getElementById("preview-pedido");
+
+let urlImagenSubida = "";
+
+if (inputImagen) {
+  inputImagen.addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Vista previa
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      if (previewImagen) {
+        previewImagen.src = ev.target.result;
+        previewImagen.style.display = "block";
+      }
+    };
+    reader.readAsDataURL(file);
+
+    // Subir a Firebase Storage
+    const storage = getStorage();
+    const nombreUnico = `peticiones/${Date.now()}_${file.name}`;
+    const storageRef = sRef(storage, nombreUnico);
+    await uploadBytes(storageRef, file);
+    urlImagenSubida = await getDownloadURL(storageRef);
+  });
+}
+
+// Reemplazar el valor de imagen al enviar formulario
+if (formPedir) {
+  formPedir.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const titulo = document.getElementById("titulo-pedido").value.trim();
+    if (!titulo || !urlImagenSubida || !usuarioPeticiones) return;
+
+    await push(dbRef(db, "peticiones"), {
+      titulo,
+      imagen: urlImagenSubida,
+      usuario: usuarioPeticiones,
+      timestamp: Date.now()
+    });
+
+    formPedir.reset();
+    urlImagenSubida = "";
+    if (previewImagen) {
+      previewImagen.src = "";
+      previewImagen.style.display = "none";
+    }
+    cargarPeticiones();
+  });
+}
