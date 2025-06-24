@@ -111,20 +111,46 @@ if (btnLoginPedir) {
   btnLoginPedir.addEventListener("click", async () => {
     const user = usuarioPedir.value.trim().toLowerCase();
     const pass = clavePedir.value.trim();
+    if (!user || !pass) return;
 
     const userRef = dbRef(db, `usuarios/${user}`);
     const snap = await get(userRef);
-    if (snap.exists() && snap.val().clave === pass) {
+
+    if (snap.exists()) {
+      // Ya existe, verificar clave
+      if (snap.val().clave === pass) {
+        usuarioPeticiones = user;
+        localStorage.setItem("usuarioDOGTV", user);
+        pedirLogin.classList.add("hidden");
+        formularioPedir.classList.remove("hidden");
+        cargarPeticiones();
+      } else {
+        errorPedir.style.display = "block";
+        errorPedir.textContent = "Contraseña incorrecta";
+      }
+    } else {
+      // Usuario no existe: crear cuenta (como en el chat general)
+      const rawIP = await obtenerIP();
+      const ip = rawIP.replace(/\./g, "_");
+      const bloqueadoRef = dbRef(db, `bloqueados/${ip}`);
+      const bloqueadoSnap = await get(bloqueadoRef);
+
+      if (bloqueadoSnap.exists()) {
+        const datos = bloqueadoSnap.val();
+        mostrarModalBloqueado(datos);
+        return;
+      }
+
+      await set(userRef, { clave: pass, permiso: false }); // incluye clave y permiso
       usuarioPeticiones = user;
       localStorage.setItem("usuarioDOGTV", user);
       pedirLogin.classList.add("hidden");
       formularioPedir.classList.remove("hidden");
       cargarPeticiones();
-    } else {
-      errorPedir.style.display = "block";
     }
   });
 }
+
 
 function cargarPeticiones() {
   onValue(dbRef(db, 'peticiones'), (snapshot) => {
@@ -586,7 +612,7 @@ if (videoElement) {
 
 if (btnFullscreen && videoElement) {
   btnFullscreen.addEventListener("click", () => {
-    console.log("Intentando poner el video en poner el video en pantalla completa");
+    console.log("Intentando poner el video en pantalla completa");
 
     if (!videoElement.src) {
       alert("No hay video cargado para mostrar en pantalla completa.");
