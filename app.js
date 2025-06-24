@@ -586,7 +586,7 @@ if (videoElement) {
 
 if (btnFullscreen && videoElement) {
   btnFullscreen.addEventListener("click", () => {
-    console.log("Intentando poner el video en pantalla completa");
+    console.log("Intentando poner el video en poner el video en pantalla completa");
 
     if (!videoElement.src) {
       alert("No hay video cargado para mostrar en pantalla completa.");
