@@ -1,134 +1,151 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-CONFIG_FILE="$HOME/.config_firebase_script"
-
 # Colores
-green="\033[0;32m"
-cyan="\033[0;36m"
-reset="\033[0m"
+R='\033[0;31m'
+G='\033[0;32m'
+Y='\033[1;33m'
+C='\033[1;36m'
+W='\033[1;37m'
+NC='\033[0m'
 
-# Función para leer configuración o crearla
-cargar_configuracion() {
-  if [ ! -f "$CONFIG_FILE" ]; then
-    echo -e "${cyan}🌐 Ingresar ID del proyecto Firebase:${reset}"
-    read -p "ID del proyecto: " PROJECT_ID
-    echo -e "${cyan}📁 Ingresa la ruta del proyecto web:${reset}"
-    read -p "Ruta completa (sin comillas): " PROJECT_PATH
-    echo "PROJECT_ID=$PROJECT_ID" > "$CONFIG_FILE"
-    echo "PROJECT_PATH='$PROJECT_PATH'" >> "$CONFIG_FILE"
-  fi
+# Ruta fija y proyecto
+PROJECT_DIR="/storage/emulated/0/Download/DORAMAS TV 10"
+PROJECT_ID="abby-cdb30"
 
-  source "$CONFIG_FILE"
+# Banner
+banner() {
+  clear
+  echo -e "${C}───▄▀▀▀▄▄▄▄▄▄▄▀▀▀▄───"
+  echo -e "───█▒▒░░░░░░░░░▒▒█───"
+  echo -e "────█░░█░░░░░█░░█────"
+  echo -e "─▄▄──█░░░▀█▀░░░█──▄▄─"
+  echo -e "${W}█░░█─▀▄░░░░░░░▄▀─█░░█"
+  echo -e "${W}█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█"
+  echo -e "${Y}█░░╦─╦╔╗╦─╔╗╔╗╔╦╗╔╗░░█"
+  echo -e "${Y}█░░║║║╠─║─║─║║║║║╠─░░█"
+  echo -e "${Y}█░░╚╩╝╚╝╚╝╚╝╚╝╩─╩╚╝░░█"
+  echo -e "${Y}█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█${NC}"
 }
 
 # Menú visual
-mostrar_menu() {
+show_menu() {
   clear
-  echo -e "${green}───▄▀▀▀▄▄▄▄▄▄▄▀▀▀▄───"
-  echo "───█▒▒░░░░░░░░░▒▒█───"
-  echo "────█░░█░░░░░█░░█────"
-  echo "─▄▄──█░░░▀█▀░░░█──▄▄─"
-  echo "█░░█─▀▄░░░░░░░▄▀─█░░█"
-  echo -e "█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█"
-  echo -e "█░░╦─╦╔╗╦─╔╗╔╗╔╦╗╔╗░░█"
-  echo -e "█░░║║║╠─║─║─║║║║║╠─░░█"
-  echo -e "█░░╚╩╝╚╝╚╝╚╝╚╝╩─╩╚╝░░█"
-  echo -e "█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█${reset}"
-  echo -e "${cyan}⧣₊˚﹒✦₊  ⧣₊˚  𓂃★    ⸝⸝ ⧣₊˚﹒✦₊  ⧣₊˚${reset}"
-  echo "  /)    /)"
-  echo " (｡•ㅅ•｡)〝₎₎ 𝓪𝓫𝓸𝓾𝓽 𝓶𝓮! ✦₊ ˊ˗"
+  echo -e "${C}⧣₊˚﹒✦₊  ⧣₊˚  𓂃★    ⸝⸝ ⧣₊˚﹒✦₊  ⧣₊˚"
+  echo "      /)    /)"
+  echo "    (｡•ㅅ•｡)〝₎₎ ¡Bienvenido! ✦₊ ˊ˗ "
   echo ". .╭∪─∪────────── ✦ ⁺."
-  echo ". .┊ ◟1 : Crear configuración "
-  echo ". .┊﹒2 : Actualizar sitio (deploy)"
-  echo ". .┊ꜝꜝ﹒3 : Acerca del script"
-  echo ". .┊⨳゛4 : Ver archivos"
-  echo ". .┊◟ヾ 5 : Cambiar configuración"
-  echo ". .┊﹒𐐪 6 : Resetear proyecto"
-  echo ". .┊ ◟﹫ 7 : Salir"
-  echo " ╰───────────── ✦ ⁺."
+  echo -e ". .┊ ◟ ${G}opción 1${NC} : Inicializar configuración"
+  echo -e ". .┊﹒ ${G}opción 2${NC} : Subir página (deploy)"
+  echo -e ". .┊ꜝꜝ﹒ ${G}opción 3${NC} : Acerca del script"
+  echo -e ". .┊ ⨳゛ ${G}opción 4${NC} : Salir"
+  echo ". .┊ ◟ヾ Autor : Diego Fernando López"
+  echo ". .┊﹒𐐪 TikTok : W LOVE AND DRAMAS"
+  echo "   ╰─────────────  ✦ ⁺."
+  echo -e "⧣₊˚﹒✦₊  ⧣₊˚  𓂃★    ⸝⸝ ⧣₊˚﹒✦₊  ⧣₊˚${NC}"
 }
 
-# Crear configuración
-crear_configuracion() {
-  cd "$PROJECT_PATH" || return
-  firebase init hosting --project "$PROJECT_ID" --public "." --single --non-interactive
-}
-
-# Actualizar deploy
-actualizar_sitio() {
-  cd "$PROJECT_PATH" || return
-  firebase deploy --only hosting
-  echo -e "${green}✅ Sitio actualizado exitosamente.${reset}"
-  read -p "Presiona Enter para volver al menú..."
-}
-
-# Acerca de
-mostrar_acerca() {
-  clear
-  echo -e "${cyan}✨ Script automático para gestionar despliegue de páginas web en Firebase Hosting.${reset}"
-  echo -e "Incluye:"
-  echo "- 📦 Instalación de herramientas (Node.js, Firebase CLI)"
-  echo "- ⚙️ Inicialización automática del proyecto"
-  echo "- ☁️ Deploy en un solo clic"
-  echo "- 🗂 Explorador de archivos integrado"
-  echo "- 💾 Configuración persistente"
-  echo -e "
-Creado por: Diego Fernando López - TikTok: W LOVE AND DRAMAS"
-  read -p "Presiona Enter para volver al menú..."
-}
-
-# Ver archivos y administrar
-ver_archivos() {
-  echo -e "${cyan}📂 Contenido de $PROJECT_PATH${reset}"
-  cd "$PROJECT_PATH" || return
-  for item in *; do
-    if [ -d "$item" ]; then
-      echo -e "📁 $item"
-    elif [ -f "$item" ]; then
-      echo -e "📄 $item"
-    fi
-  done
-  echo -e "
-Opciones: [1] Crear archivo  [2] Eliminar archivo/carpeta  [3] Volver"
-  read -p "Selecciona: " opcion_arch
-  if [ "$opcion_arch" == "1" ]; then
-    read -p "Nombre del archivo: " nombre
-    touch "$nombre"
-  elif [ "$opcion_arch" == "2" ]; then
-    read -p "Nombre del archivo o carpeta a eliminar: " objetivo
-    rm -rf "$objetivo"
+# Dependencias
+ensure_tools() {
+  if ! command -v node >/dev/null 2>&1; then
+    echo -e "${Y}➤ Instalando Node.js...${NC}"
+    pkg update -y && pkg install nodejs -y
+  fi
+  if ! command -v firebase >/dev/null 2>&1; then
+    echo -e "${Y}➤ Instalando Firebase CLI...${NC}"
+    npm install -g firebase-tools
   fi
 }
 
-# Cambiar configuración
-cambiar_configuracion() {
-  rm "$CONFIG_FILE"
-  cargar_configuracion
+# Login
+login_firebase() {
+  firebase login --no-localhost
 }
 
-# Resetear proyecto
-resetear_proyecto() {
-  cd "$PROJECT_PATH" || return
-  rm -f firebase.json .firebaserc .gitignore
-  echo -e "${cyan}🧹 Archivos eliminados para reiniciar el proyecto.${reset}"
-  read -p "Presiona Enter para volver al menú..."
+# Inicializar archivos
+init_config() {
+  cd "$PROJECT_DIR" || { echo -e "${R}❌ Carpeta no encontrada: $PROJECT_DIR${NC}"; return; }
+  [ ! -f index.html ] && echo -e "${Y}⚠️  No hallé index.html en $PROJECT_DIR${NC}" && return
+  cat > .firebaserc <<EOF
+{
+  "projects": {
+    "default": "$PROJECT_ID"
+  }
+}
+EOF
+  cat > firebase.json <<EOF
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
+EOF
+  echo -e "${G}✅ Configuración inicial completada.${NC}"
 }
 
-# Ejecutar
-cargar_configuracion
+# Deploy
+deploy_site() {
+  cd "$PROJECT_DIR" || { echo -e "${R}❌ Carpeta no encontrada: $PROJECT_DIR${NC}"; return; }
+  firebase deploy --only hosting && echo -e "${G}✅ Sitio actualizado en línea.${NC}"
+}
 
+# Acerca de
+show_about() {
+  clear
+  echo -e "${C}✦ Información del Script ✦${NC}"
+  echo -e "${W}────────────────────────────────────────────${NC}"
+  echo -e "${Y}➤ Nombre:${NC} Publicador Automático"
+  echo -e "${Y}➤ Autor:${NC} Diego Fernando López"
+  echo -e "${Y}➤ Proyecto Firebase:${NC} $PROJECT_ID"
+  echo -e "${Y}➤ Ruta Fija:${NC} $PROJECT_DIR"
+  echo -e "${Y}➤ Funciones:${NC}"
+  echo -e "  - Verifica e instala Node.js y Firebase CLI"
+  echo -e "  - Inicia sesión en Firebase (si es necesario)"
+  echo -e "  - Crea los archivos '.firebaserc' y 'firebase.json'"
+  echo -e "  - Ejecuta 'firebase deploy' automáticamente"
+  echo -e "  - Usa un menú visual bonito con arte y colores"
+  echo -e "${W}────────────────────────────────────────────${NC}"
+  read -p $'\nPresiona Enter para volver al menú...'
+}
+
+# Menú interactivo
 while true; do
-  mostrar_menu
-  echo -n -e "${green}Selecciona una opción [1-7]: ${reset}"
-  read opcion
-  case $opcion in
-    1) crear_configuracion ;;
-    2) actualizar_sitio ;;
-    3) mostrar_acerca ;;
-    4) ver_archivos ;;
-    5) cambiar_configuracion ;;
-    6) resetear_proyecto ;;
-    7) echo -e "${green}👋 Saliendo...${reset}"; exit ;;
-    *) echo -e "${cyan}❌ Opción inválida.${reset}" ;;
+  banner
+  show_menu
+  read -p $'\nSelecciona una opción [1-4]: ' choice
+  case "$choice" in
+    1)
+      ensure_tools
+      login_firebase
+      init_config
+      read -p $'\nPresiona Enter para volver al menú...'
+      ;;
+    2)
+      ensure_tools
+      login_firebase
+      deploy_site
+      read -p $'\nPresiona Enter para volver al menú...'
+      ;;
+    3)
+      show_about
+      ;;
+    4)
+      echo -e "${Y}👋 ¡Hasta luego!${NC}"
+      exit 0
+      ;;
+    *)
+      echo -e "${R}❌ Opción inválida. Intenta de nuevo.${NC}"
+      sleep 1
+      ;;
   esac
 done
