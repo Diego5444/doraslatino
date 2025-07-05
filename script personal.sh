@@ -28,7 +28,7 @@ fi
 
 # Preguntar por la carpeta del proyecto
 echo "📁 Ingresa la ruta donde tienes tu sitio web (ej: /storage/emulated/0/Download/DORAMAS TV 10)"
-read -p "Ruta: " carpetaWeb
+read -p "/storage/emulated/0/Download/DORAMAS TV 10" carpetaWeb
 
 # Verificar que la carpeta exista
 if [ ! -d "$carpetaWeb" ]; then
